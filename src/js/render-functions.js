@@ -2,12 +2,13 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 const galleryUl = document.querySelector('.gallery');
 const loader = document.querySelector('.loader');
+const loadMore = document.querySelector('.load-more');
 const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
 });
 export function createGallery(images) {
-  galleryUl.innerHTML = images
+  const markup = images
     .map(
       img => `
       <li class="photo-card">
@@ -24,6 +25,8 @@ export function createGallery(images) {
     `
     )
     .join('');
+  galleryUl.insertAdjacentHTML('beforeend', markup);
+
   lightbox.refresh();
 }
 
@@ -35,4 +38,11 @@ export function showLoader() {
 }
 export function hideLoader() {
   loader.classList.add('hidden');
+}
+
+export function showLoadMore() {
+  loadMore.classList.remove('hidden');
+}
+export function hideLoadMore() {
+  loadMore.classList.add('hidden');
 }
